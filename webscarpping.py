@@ -52,18 +52,44 @@
 
 #csv기본
 
+# import csv
+# import re
+# import requests
+# from bs4 import BeautifulSoup
+# from requests.api import get
+
+# url= "https://finance.naver.com/sise/sise_market_sum.nhn"
+
+# for page in range(1,5):
+#     res= requests.get(url+str(page))
+#     res.raise_for_status()
+#     soup =BeautifulSoup(res.text)
+
+#     soup.find("table",attrs={"class":"type_2"}).find("tbody").find_all
+#     for row in data_rows:
+
 import csv
-import re
 import requests
 from bs4 import BeautifulSoup
 
 url= "https://finance.naver.com/sise/sise_market_sum.nhn"
 
-for page in range(1,5):
-    res= requests.get(url+str(page))
-    res.raise_for_status()
-    soup =BeautifulSoup(res.text)
+filename = "시가총액 1-200.csv"
+f = open(filename,"w",encoding="utf8",newline="")
+writer = csv.writer(f)
 
-    soup.find("table",attrs={"class":"type_2"}).find("tbody").find_all
-    for row in data_rows:
-        
+writer.writerow(5)
+print(type(title))
+for page in range(1,5) :
+    res= requests.get(url+str(page))
+    res.raise_for_status
+    soup = BeautifulSoup(res.text,"lxml")
+    
+        soup.find("table", attrs={"class":"type_2"}).find("tbody").find_all
+        for row in data_rows:
+            columns = row.find_all("td")
+            data = [column.get_tect()for column in columns]
+            print(data)
+            writer.writerow(data)
+
+
