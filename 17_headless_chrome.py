@@ -1,4 +1,10 @@
 from selenium import webdriver
+
+options= webdriver.chromeoptions()
+options.headless =True
+options.add.argument("windo-size=1920x1080")
+
+
 browser = webdriver.Chrome()
 browser.maximize_window()
 
@@ -33,6 +39,7 @@ while True:
     prev_height = curr_height
 
 print("스크롤 완료")
+browser.get_screenshot_as_file("google_movie_png")
 
 import requests
 from bs4 import BeautifulSoup
